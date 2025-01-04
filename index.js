@@ -1,19 +1,33 @@
 const express = require('express');
 const path = require('path');
-const app = express();
+
 const userRouter = require('./routers/userRoutes');
 const blogRouter = require('./routers/blogRoutes');
 const staticRouter = require('./routers/staticRouter');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
+const {checkForToken} = require("./middlewares/auth");
+
 
 
 // Configuratiions
+const app = express();
+mongoose
+    .connect('mongodb://localhost:27017/An!meHaven')
+    .then(() => {console.log('Database Connected');})
+    .catch((err) => {console.log('Error in connecting to database', err);});
+
 app.set('view engine', 'ejs');
 app.set('views', path.resolve('./views'));
+
 
 // Middlewares
 app.use(express.static(path.resolve('./public')));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended : false}))
+app.use(cookieParser());
+app.use(checkForToken);
 
 
 

@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
-
+const{renderLoginPage,renderHomePage,renderSignupPage,renderAboutPage} = require("../controllers/staticController")
 // GET 
-router.get("/", (req, res) => {
-    res.render("home");
-});
+router.get("/", renderHomePage);
+router.get("/about-us", renderAboutPage);
+router.get("/login", renderLoginPage);
+router.get("/signup", renderSignupPage);
 
 
 // POST
