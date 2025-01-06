@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: 'default.jpg'
     },
-});
+},{ timestamps : true});
 
 const User = mongoose.model("user", userSchema);
 

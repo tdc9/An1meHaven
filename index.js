@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
-
+const multer = require('multer');
+const upload = multer({des : "public/uploads"})
 const userRouter = require('./routers/userRoutes');
 const blogRouter = require('./routers/blogRoutes');
 const staticRouter = require('./routers/staticRouter');
@@ -8,6 +9,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const {checkForToken} = require("./middlewares/auth");
+const commentRouter= require('./routers/commentRoutes');
 
 
 
@@ -37,6 +39,7 @@ app.use(checkForToken);
 app.use('/user', userRouter);
 app.use('/blog', blogRouter);
 app.use('/', staticRouter);
+app.use('/comment',commentRouter);
 
 
 // Listner

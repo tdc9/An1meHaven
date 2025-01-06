@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const Blog = require("../models/blog");
 const {generateTokenForUser} = require("../utils/auth")
 
 exports.handleUserLogin = async function(req,res){
@@ -32,3 +33,12 @@ exports.handleUserSignup = async function(req,res){
         res.render("signup", {message : err.message});
     }
 }
+
+exports.renderUsersBlogs = async (req, res) => {
+    if (!req.user) return res.redirect("/login")
+    const blogs = await Blog.find({createdBy : req.user._id})
+    return res.render("userBlogs", {
+        user: req.user,
+        blogs,
+    });
+};

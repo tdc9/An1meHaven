@@ -10,9 +10,24 @@
 <body>
     <%- include('./partials/components/nav.ejs') %>
     <div class="container text-center">
-        <h3>Welcome to An!meHaven</h3>
+        <h2 class="mt-2">Welcome to An!meHaven</h2>
+        <br>
+        <h3 style="margin-top: 20px;">Latest Blogs</h3>
+        <br>
+        <div class="row mt-3">
+            <% blogs.forEach(blog => { %>
+                <div class="card mx-2 " style="width: 18rem;">
+                    <img src="/uploads/<%=blog.coverImage%>" class="card-img-top" alt="anime image" style="display: flex; height: 350px; width: auto;">
+                    <div class="card-body">
+                    <h5 class="card-title"><%=blog.title.slice(0,20)%></h5>
+                    <p class="card-text"><%=blog.content.slice(0,100)%>...</p>
+                    <a href="/blog/view/<%=blog._id%>" class="btn btn-primary">Read More</a>
+                    </div>
+                </div>
+        
+        <% }) %>
+        </div>
     </div>
-
     <%- include('./partials/js/bootstrap.ejs') %>
 </body>
 </html>
